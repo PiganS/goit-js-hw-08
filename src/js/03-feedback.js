@@ -17,9 +17,9 @@ const formData = {
 };
 
 function handleInput() {
-  (formData.email = refs.emailInp.value.trim()),
-    (formData.message = refs.messageInp.value.trim()),
-    localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+  formData.email = refs.emailInp.value.trim();
+  formData.message = refs.messageInp.value.trim();
+  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
 }
 
 function loadFormData() {
