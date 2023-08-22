@@ -6,38 +6,35 @@ const refs = {
   messageInp: document.querySelector('textarea[name="message"]'),
 };
 
-const handleInput = () => {
-  const formData = {
-    email: refs.emailInp.value.trim(),
-    message: refs.messageInp.value.trim(),
-  };
-
-  localStorage.setItem('feedback-form-state', JSON.stringify(formData));
-};
-
 refs.emailInp.addEventListener('input', throttle(handleInput, 500));
 refs.messageInp.addEventListener('input', throttle(handleInput, 500));
+refs.form.addEventListener('submit', formSabmit);
+window.addEventListener('load', loadFormData);
 
-const loadFormData = () => {
-  const savedData = localStorage.getItem('feedback-form-state');
-  if (savedData) {
-    const formData = JSON.parse(savedData);
-    refs.emailInp.value = formData.email || '';
-    refs.messageInp.value = formData.message || '';
-  }
+const formData = {
+  email: '',
+  message: '',
 };
 
-window.addEventListener('load', loadFormData);
-refs.form.addEventListener('submit', formSabmit);
+function handleInput() {
+  (formData.email = refs.emailInp.value.trim()),
+    (formData.message = refs.messageInp.value.trim()),
+    localStorage.setItem('feedback-form-state', JSON.stringify(formData));
+}
+
+function loadFormData() {
+  const savedData = localStorage.getItem('feedback-form-state');
+  if (savedData) {
+    const currentValueForm = JSON.parse(savedData);
+    refs.emailInp.value = currentValueForm.email || '';
+    refs.messageInp.value = currentValueForm.message || '';
+  }
+}
 
 function formSabmit(evt) {
   evt.preventDefault();
-  const formData = {
-    email: refs.emailInp.value.trim(),
-    message: refs.messageInp.value.trim(),
-  };
+  handleInput();
   console.log('Form Data:', formData);
-
   localStorage.removeItem('feedback-form-state');
   refs.emailInp.value = '';
   refs.messageInp.value = '';
