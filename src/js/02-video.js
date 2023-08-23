@@ -17,7 +17,9 @@ try {
   const savedTime = JSON.parse(
     localStorage.getItem('videoplayer-current-time')
   );
-  player.setCurrentTime(savedTime);
+  if (savedTime !== null) {
+    player.setCurrentTime(savedTime);
+  }
 } catch (error) {
   console.error(error.name, error.message);
 }

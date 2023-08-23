@@ -8,7 +8,7 @@ const refs = {
 
 refs.emailInp.addEventListener('input', throttle(handleInput, 500));
 refs.messageInp.addEventListener('input', throttle(handleInput, 500));
-refs.form.addEventListener('submit', formSabmit);
+refs.form.addEventListener('submit', formSubmit);
 window.addEventListener('load', loadFormData);
 
 const formData = {
@@ -31,8 +31,12 @@ function loadFormData() {
   }
 }
 
-function formSabmit(evt) {
+function formSubmit(evt) {
   evt.preventDefault();
+  if (!formData.email || !formData.message) {
+    alert('Please fill out both fields.');
+    return;
+  }
   handleInput();
   console.log('Form Data:', formData);
   localStorage.removeItem('feedback-form-state');
