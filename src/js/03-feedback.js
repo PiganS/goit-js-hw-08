@@ -40,6 +40,5 @@ function formSubmit(evt) {
   handleInput();
   console.log('Form Data:', formData);
   localStorage.removeItem('feedback-form-state');
-  refs.emailInp.value = '';
-  refs.messageInp.value = '';
+  evt.currentTarget.reset();
 }
